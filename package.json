@@ -1,0 +1,28 @@
+{
+  "name": "playwright-reporting",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "rm -rf ./allure-results && playwright test --headed",
+    "report": "rm -rf ./allure-report && allure quality-gate -c ./allure.config.mjs ./allure-results; allure generate -c ./allure.config.mjs ./allure-results -o ./allure-report --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dzmikhalchuk/playwright-reporting.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dzmikhalchuk/playwright-reporting/issues"
+  },
+  "homepage": "https://github.com/dzmikhalchuk/playwright-reporting#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.2"
+  },
+  "dependencies": {
+    "allure-playwright": "^3.9.0"
+  }
+}
