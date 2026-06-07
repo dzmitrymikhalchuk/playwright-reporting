@@ -101,9 +101,13 @@ class SlackReporter {
       { type: "divider" },
       {
         type: "section",
+        text: { type: "mrkdwn", text: `*Pass Rate:* ${passRateBar}` },
+      },
+      {
+        type: "section",
         text: {
           type: "mrkdwn",
-          text: `${passRateBar}\n▶️ *${this.testStats.total}* total   ✅ *${this.testStats.passed}* passed   ❌ *${this.testStats.failed}* failed   ⏭ *${this.testStats.skipped}* skipped`,
+          text: `▶️ *${this.testStats.total}* total   ✅ *${this.testStats.passed}* passed   ❌ *${this.testStats.failed}* failed   ⏭ *${this.testStats.skipped}* skipped`,
         },
       },
     ];
