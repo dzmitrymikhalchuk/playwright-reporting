@@ -5,7 +5,7 @@
   "scripts": {
     "test": "rm -rf ./allure-results && playwright test --headed",
     "report": "rm -rf ./allure-report && allure quality-gate -c ./allure.config.mjs ./allure-results; allure generate -c ./allure.config.mjs ./allure-results -o ./allure-report --open",
-    "slack": "npx ts-node src/reporters/slack.reporter.ts"
+    "slack": "npx tsx src/reporters/slack.reporter.ts"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,8 @@
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.60.0",
-    "@types/node": "^25.9.2"
+    "@types/node": "^25.9.2",
+    "tsx": "^4.19.2"
   },
   "dependencies": {
     "allure-playwright": "^3.9.0"
