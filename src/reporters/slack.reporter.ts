@@ -82,31 +82,29 @@ class SlackReporter {
     const statusIcon = this.testStats.failed > 0 ? "❌" : this.testStats.total > 0 ? "✅" : "⚠️";
     const statusColor = isSuccess ? "#36a64f" : "#ff0000";
     const durationFormatted = this.formatDuration(this.testStats.duration * 1000);
+    const passRateBar = this.getPassRateBar(this.testStats.passRate);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const blocks: any[] = [
       {
         type: "header",
-        text: { type: "plain_text", text: `${statusIcon} Playwright E2E Test Report` },
+        text: { type: "plain_text", text: `${statusIcon} E2E Regression Report` },
       },
       {
-        type: "section",
-        fields: [
-          { type: "mrkdwn", text: `*Branch:*\n*${this.getBranchName()}*` },
-          { type: "mrkdwn", text: `*Started by:*\n*${this.getStartedBy()}*` },
+        type: "context",
+        elements: [
+          { type: "mrkdwn", text: `🔀 *${this.getBranchName()}*` },
+          { type: "mrkdwn", text: `by @${this.getStartedBy()}` },
+          { type: "mrkdwn", text: `⏱ ${durationFormatted}` },
         ],
       },
       { type: "divider" },
       {
         type: "section",
-        fields: [
-          { type: "mrkdwn", text: `▶️ *Total:*\n*${this.testStats.total}*` },
-          { type: "mrkdwn", text: `✅ *Passed:*\n*${this.testStats.passed}*` },
-          { type: "mrkdwn", text: `❌ *Failed:*\n*${this.testStats.failed}*` },
-          { type: "mrkdwn", text: `⏭ *Skipped:*\n*${this.testStats.skipped}*` },
-          { type: "mrkdwn", text: `📊 *Pass rate:*\n*${this.testStats.passRate}%*` },
-          { type: "mrkdwn", text: `⏱ *Duration:*\n*${durationFormatted}*` },
-        ],
+        text: {
+          type: "mrkdwn",
+          text: `${passRateBar}\n▶️ *${this.testStats.total}* total   ✅ *${this.testStats.passed}* passed   ❌ *${this.testStats.failed}* failed   ⏭ *${this.testStats.skipped}* skipped`,
+        },
       },
     ];
 
@@ -141,10 +139,10 @@ class SlackReporter {
         type: "actions",
         elements: [
           ...(reportUrl
-            ? [{ type: "button", text: { type: "plain_text", text: "Allure Report" }, url: reportUrl }]
+            ? [{ type: "button", text: { type: "plain_text", text: "📊 Test Report" }, url: reportUrl, style: "primary" }]
             : []),
           ...(actionsUrl
-            ? [{ type: "button", text: { type: "plain_text", text: "CI Run" }, url: actionsUrl }]
+            ? [{ type: "button", text: { type: "plain_text", text: "⚙️ GitHub Actions" }, url: actionsUrl }]
             : []),
         ],
       });
@@ -168,6 +166,12 @@ class SlackReporter {
     }
 
     console.log(`Slack sent: ${this.testStats.passed}/${this.testStats.total} passed (${this.testStats.passRate}%)`);
+  }
+
+  private getPassRateBar(passRate: number): string {
+    const filled = Math.round(passRate / 10);
+    const empty = 10 - filled;
+    return `${"█".repeat(filled)}${"░".repeat(empty)} *${passRate}%*`;
   }
 
   private formatDuration(ms: number): string {
