@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "rm -rf ./allure-results && playwright test --headed",
-    "report": "rm -rf ./allure-report && allure quality-gate -c ./allure.config.mjs ./allure-results; allure generate -c ./allure.config.mjs ./allure-results -o ./allure-report --open"
+    "report": "rm -rf ./allure-report && allure quality-gate -c ./allure.config.mjs ./allure-results; allure generate -c ./allure.config.mjs ./allure-results -o ./allure-report --open",
+    "slack": "npx ts-node src/reporters/slack.reporter.ts",
   },
   "repository": {
     "type": "git",

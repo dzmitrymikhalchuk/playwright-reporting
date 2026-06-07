@@ -54,7 +54,37 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     steps:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
+
+  notify:
+    needs: [test, deploy]
+    if: ${{ !cancelled() }}
+    runs-on: [self-hosted, ARM64]
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        clean: true
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+        cache: npm
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Send Slack notification
+      env:
+        CI: "true"
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        ALLURE_REPORT_URL: ${{ needs.deploy.outputs.page_url }}
+        GITHUB_ACTOR: ${{ github.actor }}
+        GITHUB_REF_NAME: ${{ github.ref_name }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_RUN_ID: ${{ github.run_id }}
+      run: npm run slack
