@@ -42,6 +42,13 @@ jobs:
       if: ${{ !cancelled() }}
       run: allure generate -c ./allure.config.mjs ./allure-results -o ./allure-report
 
+    - name: Upload JUnit results
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: junit-results
+        path: test-results/results.xml
+
     - uses: actions/upload-pages-artifact@v3
       if: ${{ !cancelled() }}
       with:
@@ -77,6 +84,12 @@ jobs:
 
     - name: Install dependencies
       run: npm ci
+
+    - name: Download JUnit results
+      uses: actions/download-artifact@v4
+      with:
+        name: junit-results
+        path: test-results/
 
     - name: Send Slack notification
       env:
