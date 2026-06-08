@@ -14,7 +14,7 @@ export class SignInPage extends BasePage {
     password && (await this.passwordInput.fill(password));
   }
 
-  @logStep("Click login button")
+  @logStep("Submit login form")
   async clickLoginButton() {
     await this.loginButton.click();
 }

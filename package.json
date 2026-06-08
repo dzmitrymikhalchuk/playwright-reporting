@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "rm -rf ./allure-results && playwright test --headed",
-    "report": "rm -rf ./allure-report && allure quality-gate -c ./allure.config.mjs ./allure-results; allure generate -c ./allure.config.mjs ./allure-results -o ./allure-report --open",
+    "test": "rm -rf ./allure-results && allure run -c ./allure.config.mjs -- playwright test --headed",
+    "test:ci": "rm -rf ./allure-results && allure run -c ./allure.config.mjs -- playwright test",
+    "report": "allure open ./allure-report",
     "slack": "npx tsx src/reporters/slack.reporter.ts"
   },
   "repository": {
@@ -25,6 +26,7 @@
     "tsx": "^4.19.2"
   },
   "dependencies": {
+    "allure": "^3.9.0",
     "allure-playwright": "^3.9.0"
   }
 }
