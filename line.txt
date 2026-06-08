@@ -1,0 +1,126 @@
+playwright test
+
+[2mRunning [22m3[2m tests using [22m1[2m worker[22m
+
+[1A[2K[1/3] [chromium] › src/tests/addProduct.spec.ts:6:7 › [ADO-220] Add product to cart › Add single product to cart @regression @product
+[1A[2K[2/3] [chromium] › src/tests/negative.spec.ts:6:9 › [ADO-120] Failed test › has title @regression
+[1A[2K[3/3] (retries) [chromium] › src/tests/negative.spec.ts:6:9 › [ADO-120] Failed test › has title @regression[33m (retry #1)[39m
+[1A[2K[4/3] (retries) [chromium] › src/tests/negative.spec.ts:6:9 › [ADO-120] Failed test › has title @regression[33m (retry #2)[39m
+[1A[2K[31m  1) [chromium] › src/tests/negative.spec.ts:6:9 › [ADO-120] Failed test › has title @regression [2m───[22m[39m
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveTitle[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/Playwright/[39m
+    Received string:  [31m"Swag Labs"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toHaveTitle" with timeout 5000ms[22m
+    [2m    14 × unexpected value "Swag Labs"[22m
+
+
+    [0m [90m  6 |[39m     test([32m'has title'[39m[33m,[39m [36masync[39m ({ page }) [33m=>[39m {
+     [90m  7 |[39m         [36mawait[39m page[33m.[39mgoto([33mBASE_URL[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m  8 |[39m         [36mawait[39m expect(page)[33m.[39mtoHaveTitle([35m/Playwright/[39m)[33m;[39m
+     [90m    |[39m                            [31m[1m^[22m[39m
+     [90m  9 |[39m     })[33m;[39m
+     [90m 10 |[39m })[33m;[39m[0m
+    [2m    at /home/github-runner/actions-runner/_work/playwright-reporting/playwright-reporting/src/tests/negative.spec.ts:8:28[22m
+
+[2m    attachment #1: [1mscreenshot[2m (image/png) [2m──────────────────────────────────────────────────────────[2m[22m
+[2m    test-results/negative--ADO-120-Failed-test-has-title-chromium/test-failed-1.png[22m
+[2m    [2m────────────────────────────────────────────────────────────────────────────────────────────────[2m[22m
+
+[2m    Error Context: test-results/negative--ADO-120-Failed-test-has-title-chromium/error-context.md[22m
+
+[2m    attachment #3: [1mtrace[2m (application/zip) [2m─────────────────────────────────────────────────────────[2m[22m
+[2m    test-results/negative--ADO-120-Failed-test-has-title-chromium/trace.zip[22m
+[2m    Usage:[22m
+
+[2m        npx playwright show-trace test-results/negative--ADO-120-Failed-test-has-title-chromium/trace.zip[22m
+
+[2m    [2m────────────────────────────────────────────────────────────────────────────────────────────────[2m[22m
+
+[90m    Retry #1 [2m───────────────────────────────────────────────────────────────────────────────────────[22m[39m
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveTitle[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/Playwright/[39m
+    Received string:  [31m"Swag Labs"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toHaveTitle" with timeout 5000ms[22m
+    [2m    14 × unexpected value "Swag Labs"[22m
+
+
+    [0m [90m  6 |[39m     test([32m'has title'[39m[33m,[39m [36masync[39m ({ page }) [33m=>[39m {
+     [90m  7 |[39m         [36mawait[39m page[33m.[39mgoto([33mBASE_URL[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m  8 |[39m         [36mawait[39m expect(page)[33m.[39mtoHaveTitle([35m/Playwright/[39m)[33m;[39m
+     [90m    |[39m                            [31m[1m^[22m[39m
+     [90m  9 |[39m     })[33m;[39m
+     [90m 10 |[39m })[33m;[39m[0m
+    [2m    at /home/github-runner/actions-runner/_work/playwright-reporting/playwright-reporting/src/tests/negative.spec.ts:8:28[22m
+
+[2m    attachment #1: [1mscreenshot[2m (image/png) [2m──────────────────────────────────────────────────────────[2m[22m
+[2m    test-results/negative--ADO-120-Failed-test-has-title-chromium-retry1/test-failed-1.png[22m
+[2m    [2m────────────────────────────────────────────────────────────────────────────────────────────────[2m[22m
+
+[2m    Error Context: test-results/negative--ADO-120-Failed-test-has-title-chromium-retry1/error-context.md[22m
+
+[2m    attachment #3: [1mtrace[2m (application/zip) [2m─────────────────────────────────────────────────────────[2m[22m
+[2m    test-results/negative--ADO-120-Failed-test-has-title-chromium-retry1/trace.zip[22m
+[2m    Usage:[22m
+
+[2m        npx playwright show-trace test-results/negative--ADO-120-Failed-test-has-title-chromium-retry1/trace.zip[22m
+
+[2m    [2m────────────────────────────────────────────────────────────────────────────────────────────────[2m[22m
+
+[90m    Retry #2 [2m───────────────────────────────────────────────────────────────────────────────────────[22m[39m
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveTitle[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/Playwright/[39m
+    Received string:  [31m"Swag Labs"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toHaveTitle" with timeout 5000ms[22m
+    [2m    14 × unexpected value "Swag Labs"[22m
+
+
+    [0m [90m  6 |[39m     test([32m'has title'[39m[33m,[39m [36masync[39m ({ page }) [33m=>[39m {
+     [90m  7 |[39m         [36mawait[39m page[33m.[39mgoto([33mBASE_URL[39m)[33m;[39m
+    [31m[1m>[22m[39m[90m  8 |[39m         [36mawait[39m expect(page)[33m.[39mtoHaveTitle([35m/Playwright/[39m)[33m;[39m
+     [90m    |[39m                            [31m[1m^[22m[39m
+     [90m  9 |[39m     })[33m;[39m
+     [90m 10 |[39m })[33m;[39m[0m
+    [2m    at /home/github-runner/actions-runner/_work/playwright-reporting/playwright-reporting/src/tests/negative.spec.ts:8:28[22m
+
+[2m    attachment #1: [1mscreenshot[2m (image/png) [2m──────────────────────────────────────────────────────────[2m[22m
+[2m    test-results/negative--ADO-120-Failed-test-has-title-chromium-retry2/test-failed-1.png[22m
+[2m    [2m────────────────────────────────────────────────────────────────────────────────────────────────[2m[22m
+
+[2m    Error Context: test-results/negative--ADO-120-Failed-test-has-title-chromium-retry2/error-context.md[22m
+
+[2m    attachment #3: [1mtrace[2m (application/zip) [2m─────────────────────────────────────────────────────────[2m[22m
+[2m    test-results/negative--ADO-120-Failed-test-has-title-chromium-retry2/trace.zip[22m
+[2m    Usage:[22m
+
+[2m        npx playwright show-trace test-results/negative--ADO-120-Failed-test-has-title-chromium-retry2/trace.zip[22m
+
+[2m    [2m────────────────────────────────────────────────────────────────────────────────────────────────[2m[22m
+
+
+[1A[2K[5/3] [chromium] › src/tests/signIn.spec.ts:5:7 › [ADO-100] Sign In feature › User LogIn - positive @regression
+[1A[2K[31m  1 failed[39m
+[31m    [chromium] › src/tests/negative.spec.ts:6:9 › [ADO-120] Failed test › has title @regression [2m────[22m[39m
+[32m  2 passed[39m[2m (23.8s)[22m
+process finished with code 1 (24950ms)
+[31mQuality Gate failed with following issues:[39m
+
+ [31m⨯[39m Success rate [1m0.6666666666666666[22m is less, than expected [1m1[22m              [90msuccessRate[39m
+ [31m⨯[39m The number of failed tests [1m1[22m exceeds the allowed threshold value [1m0[22m    [90mmaxFailures[39m
+
+[31m2 quality gate rules have been failed.[39m
+exit code 0 (25852ms)

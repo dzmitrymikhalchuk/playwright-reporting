@@ -1,0 +1,1 @@
+{"default":[{"success":false,"actual":0.6666666666666666,"expected":1,"rule":"successRate","message":"Success rate \u001b[1m0.6666666666666666\u001b[22m is less, than expected \u001b[1m1\u001b[22m"},{"success":false,"actual":1,"expected":0,"rule":"maxFailures","message":"The number of failed tests \u001b[1m1\u001b[22m exceeds the allowed threshold value \u001b[1m0\u001b[22m"}]}
