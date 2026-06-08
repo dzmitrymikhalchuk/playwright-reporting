@@ -134,16 +134,24 @@ class SlackReporter {
       }
     }
 
-    const reportUrl = process.env.ALLURE_REPORT_URL ?? null;
+    const allureUrl = process.env.ALLURE_REPORT_URL ?? null;
+    const pwUrl = process.env.PW_REPORT_URL ?? null;
+    const lineUrl = process.env.LINE_REPORT_URL ?? null;
     const actionsUrl = this.getActionsUrl();
 
-    if (reportUrl || actionsUrl) {
+    if (allureUrl || pwUrl || lineUrl || actionsUrl) {
       blocks.push({ type: "divider" });
       blocks.push({
         type: "actions",
         elements: [
-          ...(reportUrl
-            ? [{ type: "button", text: { type: "plain_text", text: "📊 Test Report" }, url: reportUrl, style: "primary" }]
+          ...(allureUrl
+            ? [{ type: "button", text: { type: "plain_text", text: "📊 Allure Report" }, url: allureUrl, style: "primary" }]
+            : []),
+          ...(pwUrl
+            ? [{ type: "button", text: { type: "plain_text", text: "🎭 Playwright Report" }, url: pwUrl }]
+            : []),
+          ...(lineUrl
+            ? [{ type: "button", text: { type: "plain_text", text: "📄 Line Report" }, url: lineUrl }]
             : []),
           ...(actionsUrl
             ? [{ type: "button", text: { type: "plain_text", text: "⚙️ GitHub Actions" }, url: actionsUrl }]
