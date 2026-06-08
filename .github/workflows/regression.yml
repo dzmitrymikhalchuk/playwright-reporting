@@ -8,7 +8,7 @@ permissions:
   id-token: write
 
 jobs:
-  test:
+  run-tests:
     timeout-minutes: 60
     runs-on: [self-hosted, ARM64]
     steps:
@@ -54,8 +54,8 @@ jobs:
       with:
         path: allure-report/
 
-  deploy:
-    needs: test
+  publish-report:
+    needs: run-tests
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     environment:
@@ -68,8 +68,8 @@ jobs:
       id: deployment
       uses: actions/deploy-pages@v4
 
-  notify:
-    needs: [test, deploy]
+  notify-slack:
+    needs: [run-tests, publish-report]
     if: ${{ !cancelled() }}
     runs-on: [self-hosted, ARM64]
     steps:
