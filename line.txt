@@ -115,12 +115,12 @@ playwright test
 [1A[2K[5/3] [chromium] › src/tests/signIn.spec.ts:5:7 › [ADO-100] Sign In feature › User LogIn - positive @regression
 [1A[2K[31m  1 failed[39m
 [31m    [chromium] › src/tests/negative.spec.ts:6:9 › [ADO-120] Failed test › has title @regression [2m────[22m[39m
-[32m  2 passed[39m[2m (23.6s)[22m
-process finished with code 1 (24672ms)
+[32m  2 passed[39m[2m (23.7s)[22m
+process finished with code 1 (24658ms)
 [31mQuality Gate failed with following issues:[39m
 
  [31m⨯[39m Success rate [1m0.6666666666666666[22m is less, than expected [1m1[22m              [90msuccessRate[39m
  [31m⨯[39m The number of failed tests [1m1[22m exceeds the allowed threshold value [1m0[22m    [90mmaxFailures[39m
 
 [31m2 quality gate rules have been failed.[39m
-exit code 0 (25808ms)
+exit code 0 (25872ms)

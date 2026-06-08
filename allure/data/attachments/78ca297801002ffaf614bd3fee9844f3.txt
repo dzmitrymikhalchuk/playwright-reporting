@@ -114,4 +114,4 @@
 [1A[2K[5/3] [chromium] › src/tests/signIn.spec.ts:5:7 › [ADO-100] Sign In feature › User LogIn - positive @regression
 [1A[2K[31m  1 failed[39m
 [31m    [chromium] › src/tests/negative.spec.ts:6:9 › [ADO-120] Failed test › has title @regression [2m────[22m[39m
-[32m  2 passed[39m[2m (23.6s)[22m
+[32m  2 passed[39m[2m (23.7s)[22m
