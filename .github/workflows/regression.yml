@@ -30,6 +30,7 @@ jobs:
     - name: Run tests and generate report
       run: |
         set -o pipefail
+        touch line-report.txt
         npm run test:ci 2>&1 | tee line-report.txt
 
     - name: Prepare GitHub Pages
@@ -38,7 +39,7 @@ jobs:
         mkdir -p pages
         cp -r allure-report pages/allure
         cp -r playwright-report pages/playwright
-        cp line-report.txt pages/
+        cp line-report.txt pages/line.txt
 
     - name: Upload JUnit results
       if: ${{ !cancelled() }}
