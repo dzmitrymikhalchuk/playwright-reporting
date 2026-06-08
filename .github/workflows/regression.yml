@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -15,6 +15,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         clean: true
+        fetch-depth: 0
 
     - uses: actions/setup-node@v4
       with:
@@ -27,11 +28,22 @@ jobs:
     - name: Install Playwright Chromium
       run: npx playwright install chromium --with-deps
 
+    - name: Restore Allure history
+      continue-on-error: true
+      run: |
+        rm -rf ./allure-results
+        if git ls-remote --exit-code --heads origin gh-pages; then
+          git fetch origin gh-pages --depth=1
+          git checkout origin/gh-pages -- allure-history 2>/dev/null || echo "No history yet, starting fresh"
+        else
+          echo "gh-pages branch not found, skipping"
+        fi
+
     - name: Run tests and generate report
       run: |
         set -o pipefail
         touch line-report.txt
-        npm run test:ci 2>&1 | tee line-report.txt
+        npx allure run -c ./allure.config.mjs -- playwright test 2>&1 | tee line-report.txt
 
     - name: Prepare GitHub Pages
       if: ${{ !cancelled() }}
@@ -40,6 +52,15 @@ jobs:
         cp -r allure-report pages/allure
         cp -r playwright-report pages/playwright
         cp line-report.txt pages/line.txt
+        [ -d allure-history ] && cp -r allure-history pages/allure-history || true
+
+    - name: Deploy to GitHub Pages
+      if: ${{ !cancelled() }}
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./pages
+        keep_files: false
 
     - name: Upload JUnit results
       if: ${{ !cancelled() }}
@@ -55,27 +76,8 @@ jobs:
         name: line-report
         path: line-report.txt
 
-    - uses: actions/upload-pages-artifact@v3
-      if: ${{ !cancelled() }}
-      with:
-        path: pages/
-
-  publish-report:
-    needs: run-tests
-    if: ${{ !cancelled() }}
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    outputs:
-      page_url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
-
   notify-slack:
-    needs: [run-tests, publish-report]
+    needs: [run-tests]
     if: ${{ !cancelled() }}
     runs-on: [self-hosted, ARM64]
     steps:
@@ -101,9 +103,9 @@ jobs:
       env:
         CI: "true"
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        ALLURE_REPORT_URL: ${{ needs.publish-report.outputs.page_url }}allure/
-        PW_REPORT_URL: ${{ needs.publish-report.outputs.page_url }}playwright/
-        LINE_REPORT_URL: ${{ needs.publish-report.outputs.page_url }}line.txt
+        ALLURE_REPORT_URL: ${{ format('https://{0}.github.io/{1}/allure/', github.repository_owner, github.event.repository.name) }}
+        PW_REPORT_URL: ${{ format('https://{0}.github.io/{1}/playwright/', github.repository_owner, github.event.repository.name) }}
+        LINE_REPORT_URL: ${{ format('https://{0}.github.io/{1}/line.txt', github.repository_owner, github.event.repository.name) }}
         GITHUB_ACTOR: ${{ github.actor }}
         GITHUB_REF_NAME: ${{ github.ref_name }}
         GITHUB_REPOSITORY: ${{ github.repository }}
